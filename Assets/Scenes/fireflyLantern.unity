@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Lantern
   _fireflyPrefab: {fileID: 4383851425030267234, guid: e10ebec538de3fa1faf81d4153803732, type: 3}
   _fireflyCount: 3
-  _spawnRange: 0.1
+  _spawnRange: 0.05
 --- !u!1 &39894296
 GameObject:
   m_ObjectHideFlags: 0
@@ -3770,8 +3770,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.015
+  m_Color: {r: 1, g: 0.84313726, b: 0, a: 1}
+  m_Intensity: 0.03
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3972,7 +3972,6 @@ GameObject:
   m_Component:
   - component: {fileID: 369948130}
   - component: {fileID: 369948129}
-  - component: {fileID: 369948131}
   m_Layer: 0
   m_Name: PostProcess
   m_TagString: Untagged
@@ -3992,7 +3991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
-  m_IsGlobal: 0
+  m_IsGlobal: 1
   priority: 0
   blendDistance: 0
   weight: 1
@@ -4012,27 +4011,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &369948131
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369948128}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 4.214054, y: 4.2805586, z: 5.206889}
-  m_Center: {x: -0.5006422, y: -0.09851456, z: -2.1034446}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4062,7 +4040,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.46371943, g: 0.44949272, b: 0.8584906, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
