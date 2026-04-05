@@ -130,7 +130,7 @@ Material:
     - _ZWrite: 1
     - _burningState: 1
     - _burntWidth: 0
-    - _dissolved: 0.879
+    - _dissolved: 0
     - _fireWidth: 0.082
     - _noiseDistance: 0.05
     - _noiseScale: 30
