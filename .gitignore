@@ -16,6 +16,9 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+Samples
+Samples.meta
+
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1
 *.blend1.meta
@@ -101,3 +104,4 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader
