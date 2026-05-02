@@ -383,7 +383,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1001 &1696276605
+--- !u!1001 &2076877169
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -393,15 +393,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: dd69eb9c83fe4ef49a2c899775375bed, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.61578
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd69eb9c83fe4ef49a2c899775375bed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd69eb9c83fe4ef49a2c899775375bed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.84713
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd69eb9c83fe4ef49a2c899775375bed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -439,10 +439,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: triangle
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: dd69eb9c83fe4ef49a2c899775375bed, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8700617353114198275, guid: dd69eb9c83fe4ef49a2c899775375bed, type: 3}
@@ -467,7 +463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!73398921 &2085770472
 VFXRenderer:
   serializedVersion: 1
@@ -476,8 +472,8 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085770471}
-  m_Enabled: 1
-  m_CastShadows: 0
+  m_Enabled: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -532,7 +528,10 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: transition
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -550,7 +549,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+        m_Name: mesh
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!4 &2085770474
@@ -562,7 +564,7 @@ Transform:
   m_GameObject: {fileID: 2085770471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.021, y: 0.879, z: -7.917}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -575,4 +577,4 @@ SceneRoots:
   - {fileID: 351457325}
   - {fileID: 555150507}
   - {fileID: 2085770474}
-  - {fileID: 1696276605}
+  - {fileID: 2076877169}
