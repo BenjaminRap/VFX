@@ -17,6 +17,8 @@ public class BookSwordDistTool : EditorWindow
 	private Texture2D	_generatedTexture;
 	private Vector2Int	_resolution;
 
+	Vector2 scrollPosition = Vector2.zero;
+
     [MenuItem("Tools/BookSword")]
     private static void Init()
     {
@@ -70,6 +72,7 @@ public class BookSwordDistTool : EditorWindow
 
     private void OnGUI()
     {
+		scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
         _spritesheet = (Texture2D)EditorGUILayout.ObjectField("SpriteSheet", _spritesheet, typeof(Texture2D), false);
         _minAlpha = EditorGUILayout.Slider("Min Alpha", _minAlpha, 0, 1);
 		_flipbookSize = EditorGUILayout.Vector2IntField("Flipbook size", _flipbookSize);
@@ -92,6 +95,7 @@ public class BookSwordDistTool : EditorWindow
 				SaveTexture(_generatedTexture);
 			}
         }
+		GUILayout.EndScrollView();
     }
 
     private void Generate()
