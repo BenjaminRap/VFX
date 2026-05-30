@@ -25,6 +25,8 @@ public class BookSwordDistTool : EditorWindow
 
 	private void	Awake()
 	{
+		if (EditorPrefs.HasKey("BookSword_MinAlpha"))
+			_minAlpha = EditorPrefs.GetFloat("BookSword_MinAlpha");
 		if (EditorPrefs.HasKey("BookSword_ResolutionFactor"))
 			_resolutionFactor = EditorPrefs.GetInt("BookSword_ResolutionFactor");
 		if (EditorPrefs.HasKey("BookSword_FlipbookSizeX"))
@@ -50,6 +52,7 @@ public class BookSwordDistTool : EditorWindow
 
 	private void	OnDestroy()
 	{
+		EditorPrefs.SetFloat("BookSword_MinAlpha", _minAlpha);
 		EditorPrefs.SetInt("BookSword_ResolutionFactor", _resolutionFactor);
 		EditorPrefs.SetInt("BookSword_FlipbookSizeX", _flipbookSize.x);
 		EditorPrefs.SetInt("BookSword_FlipbookSizeY", _flipbookSize.y);
