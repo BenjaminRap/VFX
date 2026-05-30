@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-public class BookSwordDistbookSwordTool : EditorWindow
+public class BookSwordDistTool : EditorWindow
 {
     private Texture2D	_spritesheet;
 	private float		_minAlpha = 0.5f;
@@ -20,7 +20,7 @@ public class BookSwordDistbookSwordTool : EditorWindow
     [MenuItem("Tools/BookSword")]
     private static void Init()
     {
-        GetWindow<BookSwordDistbookSwordTool>();
+        GetWindow<BookSwordDistTool>();
     }
 
 	private void	Awake()
