@@ -6,11 +6,13 @@ using System.Collections.Generic;
 public class BookSwordDistbookSwordTool : EditorWindow
 {
     private Texture2D	_spritesheet;
-	private float		_minAlpha;
-	private string		_path;
-	private Vector2Int	_flipbookSize;
-	private Vector2Int	_resolution;
+	private float		_minAlpha = 0.5f;
+	private string		_path = "Assets/Textures/Untitled.png";
+	private Vector2Int	_flipbookSize = Vector2Int.one;
+	private int			_resolutionFactor = 1;
+
 	private Texture2D	_generatedTexture;
+	private Vector2Int	_resolution;
 
     [MenuItem("Tools/BookSword")]
     private static void Init()
@@ -23,7 +25,7 @@ public class BookSwordDistbookSwordTool : EditorWindow
         _spritesheet = (Texture2D)EditorGUILayout.ObjectField("SpriteSheet", _spritesheet, typeof(Texture2D), false);
         _minAlpha = EditorGUILayout.Slider("Min Alpha", _minAlpha, 0, 1);
 		_flipbookSize = EditorGUILayout.Vector2IntField("Flipbook size", _flipbookSize);
-		_resolution = EditorGUILayout.Vector2IntField("Resolution of created texture", _resolution);
+		_resolutionFactor = EditorGUILayout.IntField("Resolution factor of generated texture", _resolutionFactor);
 
         if (GUILayout.Button("Generate"))
         {
@@ -42,6 +44,7 @@ public class BookSwordDistbookSwordTool : EditorWindow
     private void Generate()
     {
 		CheckArgumentValidity();
+		_resolution = new Vector2Int(_spritesheet.width, _spritesheet.height) * _resolutionFactor;
 		Debug.LogWarning("Don't forget to turn off the texture Read/Write after generating the file !");
 		_generatedTexture = CreateTexture();
     }
@@ -56,11 +59,8 @@ public class BookSwordDistbookSwordTool : EditorWindow
 			throw new Exception("The minAlpha should be in range [0, 1]");
 		if (_flipbookSize.x <= 0 || _flipbookSize.y <= 0)
 			throw new Exception("The flipbbok size must be positive !");
-		if (_resolution.x <= 0 || _resolution.y <= 0)
-			throw new Exception("The resolution of the created image must be positive !");
-		if (!Mathf.IsPowerOfTwo(_resolution.x) || !Mathf.IsPowerOfTwo(_resolution.y))
-			Debug.LogWarning("The resolution should be a power of two for better performances !");
-		Debug.LogWarning("Should add a test for the resolution to be a multiple of the flipbook");
+		if (_resolutionFactor <= 0)
+			throw new Exception("The resolution factor of the created image must be positive !");
 	}
 
 	private Texture2D	CreateTexture()
@@ -90,7 +90,7 @@ public class BookSwordDistbookSwordTool : EditorWindow
 		{
 			for (int x = 0; x < frameResolution.x; x++)
 			{
-				if (x < frameResolution.y - y)
+				if (x > frameResolution.y - y)
 					continue ;
 
 				int		index = GetPixelIndexInGeneratedTexture(frameX, frameY, x, y, frameResolution);
@@ -122,7 +122,8 @@ public class BookSwordDistbookSwordTool : EditorWindow
 						continue ;
 					Vector2Int	newPixelPos = new(pixelPos.x + x, pixelPos.y + y);
 
-					if (newPixelPos.x < 0 || newPixelPos.y < 0 || newPixelPos.x >= frameResolution.x || newPixelPos.y >= frameResolution.y || newPixelPos.x < frameResolution.y - newPixelPos.y)
+					if (newPixelPos.x < 0 || newPixelPos.y < 0 || newPixelPos.x >= frameResolution.x
+							|| newPixelPos.y >= frameResolution.y || newPixelPos.x > frameResolution.y - newPixelPos.y)
 						continue ;
 					int			newOutputPixelIndex = GetPixelIndexInGeneratedTexture(frameX, frameY, newPixelPos.x, newPixelPos.y, frameResolution);
 					byte		newAlpha = (x != 0 && y != 0) ? diagonalAlpha : sideAlpha;
@@ -140,7 +141,7 @@ public class BookSwordDistbookSwordTool : EditorWindow
 
 	private byte	GetSpriteSheetPixelAlpha(int frameX, int frameY, int x, int y, Vector2Int frameResolution, Color32[] spriteSheetPixels)
 	{
-		if (x < frameResolution.x / 2 || y < frameResolution.y / 2)
+		if (x > frameResolution.x / 2 || y > frameResolution.y / 2)
 			return 0;
 		int	index = GetPixelIndexInGeneratedTexture(frameX, frameY, x * 2 % frameResolution.x, y * 2 % frameResolution.y, frameResolution);
 
