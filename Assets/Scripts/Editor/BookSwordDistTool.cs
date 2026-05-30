@@ -109,6 +109,10 @@ public class BookSwordDistTool : EditorWindow
 			throw new Exception("The minAlpha should be in range [0, 1]");
 		if (_flipbookSize.x <= 0 || _flipbookSize.y <= 0)
 			throw new Exception("The flipbbok size must be positive !");
+		if (_spritesheet.width / _flipbookSize.x % 1 != 0)
+			throw new Exception("The spritesheet width should be a multiple of the flipbook size x");
+		if (_spritesheet.height / _flipbookSize.y % 1 != 0)
+			throw new Exception("The spritesheet height should be a multiple of the flipbook size y");
 	}
 
 	private Texture2D	CreateTexture()
