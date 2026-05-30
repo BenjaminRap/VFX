@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 public class BookSwordDistbookSwordTool : EditorWindow
 {
@@ -10,6 +11,8 @@ public class BookSwordDistbookSwordTool : EditorWindow
 	private string		_path = "Assets/Textures/Untitled.png";
 	private Vector2Int	_flipbookSize = Vector2Int.one;
 	private int			_resolutionFactor = 1;
+	private string		_savePath = "Assets";
+	private string		_saveName = "Untitled";
 
 	private Texture2D	_generatedTexture;
 	private Vector2Int	_resolution;
@@ -19,6 +22,48 @@ public class BookSwordDistbookSwordTool : EditorWindow
     {
         GetWindow<BookSwordDistbookSwordTool>();
     }
+
+	private void	Awake()
+	{
+		if (EditorPrefs.HasKey("BookSword_ResolutionFactor"))
+			_resolutionFactor = EditorPrefs.GetInt("BookSword_ResolutionFactor");
+		if (EditorPrefs.HasKey("BookSword_FlipbookSizeX"))
+			_flipbookSize.x = EditorPrefs.GetInt("BookSword_FlipbookSizeX");
+		if (EditorPrefs.HasKey("BookSword_FlipbookSizeY"))
+			_flipbookSize.y = EditorPrefs.GetInt("BookSword_FlipbookSizeY");
+		if (EditorPrefs.HasKey("BookSword_TexturePath"))
+		{
+			string	texturePath = EditorPrefs.GetString("BookSword_TexturePath");
+
+			Texture2D	texture = (Texture2D)AssetDatabase.LoadAssetAtPath(texturePath, typeof(Texture2D));
+
+			if (texture == null)
+				Debug.LogError("Could not load the spritesheet texture at path : " + texturePath);
+			else
+				_spritesheet = texture;
+		}
+		if (EditorPrefs.HasKey("BookSword_SavePath"))
+			_savePath = EditorPrefs.GetString("BookSword_SavePath");
+		if (EditorPrefs.HasKey("BookSword_SaveName"))
+			_saveName = EditorPrefs.GetString("BookSword_SaveName");
+	}
+
+	private void	OnDestroy()
+	{
+		EditorPrefs.SetInt("BookSword_ResolutionFactor", _resolutionFactor);
+		EditorPrefs.SetInt("BookSword_FlipbookSizeX", _flipbookSize.x);
+		EditorPrefs.SetInt("BookSword_FlipbookSizeY", _flipbookSize.y);
+		if (_spritesheet != null)
+		{
+			string	path = AssetDatabase.GetAssetPath(_spritesheet);
+
+			EditorPrefs.SetString("BookSword_TexturePath", path);
+		}
+		else if (EditorPrefs.HasKey("BookSword_TexturePath"))
+			EditorPrefs.DeleteKey("BookSword_TexturePath");
+		EditorPrefs.SetString("BookSword_SaveName", _saveName);
+		EditorPrefs.SetString("BookSword_SavePath", _savePath);
+	}
 
     private void OnGUI()
     {
@@ -36,8 +81,13 @@ public class BookSwordDistbookSwordTool : EditorWindow
 
         if (GUILayout.Button("Save"))
         {
-			_path = EditorUtility.SaveFilePanelInProject("Save png", "Untitled", "png", "Please enter a file name to save the texture to");
-			SaveTexture(_generatedTexture);
+			_path = EditorUtility.SaveFilePanelInProject("Save png", _saveName, "png", "Please enter a file name to save the texture to", _savePath);
+			if (_path.Length != 0)
+			{
+				_savePath = Path.GetDirectoryName(_path);
+				_saveName = Path.GetFileNameWithoutExtension(_path);
+				SaveTexture(_generatedTexture);
+			}
         }
     }
 
